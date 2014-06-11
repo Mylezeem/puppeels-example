@@ -41,16 +41,17 @@ Something like
 
 .. code:: bash
 
-class mywrapper::compute {
-  include ::nova
-  include anotherclass
-}
+  class mywrapper::compute {
+    include ::nova
+    include anotherclass
+  }
 
 which would go along with a compute.yaml
 
 .. code:: bash
 
----
-  nova::parameter1: value1
-  nova::parameter2: value2
-  anotherclass::foo: bar 
+  ---
+    nova::parameter1: value1
+    nova::parameter2: value2
+   
+    anotherclass::foo: bar 
