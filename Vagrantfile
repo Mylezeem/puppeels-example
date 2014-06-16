@@ -6,9 +6,13 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  config.vm.box = "centos"
+
   config.vm.define "postgresql" do |postgresql|
-    postgresql.vm.box = "centos" 
     postgresql.vm.hostname = "postgresql.mylezeem.com"
+
+    postgresql.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    postgresql.vm.provision "shell", inline: "yum -y update puppet"
 
     #postgresql.vm.provision "puppet" do |puppet|
     #  puppet.module_path = 'modules'
@@ -18,8 +22,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "puppetdb" do |puppetdb|
-    puppetdb.vm.box = "centos" 
     puppetdb.vm.hostname = "puppetdb.mylezeem.com"
+
+    puppetdb.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    puppetdb.vm.provision "shell", inline: "yum -y update puppet"
 
     #puppetdb.vm.provision "puppet" do |puppet|
     #  puppet.module_path = 'modules'
@@ -29,8 +35,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "puppetmaster" do |puppetmaster|
-    puppetmaster.vm.box = "centos" 
     puppetmaster.vm.hostname = "puppetmaster.mylezeem.com"
+
+    puppetmaster.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    puppetmaster.vm.provision "shell", inline: "yum -y update puppet"
 
     #puppetmaster.vm.provision "puppet" do |puppet|
     #  puppet.module_path = 'modules'
