@@ -1,0 +1,15 @@
+---
+postgresql::server::listen_addresses: *
+postgresql::server::ip_mask_allow_all_users: 0.0.0.0/0
+postgresql::server::postgres_password: password
+
+postgresql::globals::encoding: UTF8
+postgresql::globals::local: en_US
+
+puppetdb::server::database_host: postgresql
+puppetdb::server::host: root
+puppetdb::server::password: password
+puppetdb::server::name: puppetdb
+
+puppetdb::master::config:::puppetdb_server: puppetdb
+

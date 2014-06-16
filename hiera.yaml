@@ -1,0 +1,7 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: /home/spredzy/mylezeem/test/hiera
+:hierarchy:
+  - common
