@@ -1,10 +1,28 @@
 ---
-postgresql::server::listen_addresses: *
+postgresql::server::listen_addresses: '*'
 postgresql::server::ip_mask_allow_all_users: 0.0.0.0/0
 postgresql::server::postgres_password: password
 
 postgresql::globals::encoding: UTF8
 postgresql::globals::local: en_US
+
+postgresql::server::pg_hba_rules::pg_hba_rules:
+  puppetdb:
+    type: host
+    database: puppetdb
+    user: puppetdb
+    auth_method: md5
+    address: 0.0.0.0/0
+    description: 'PuppetDB authorization access'
+  gitlab:
+    type: host
+    database: gitlab
+    user: gitlab
+    auth_method: md5
+    address: 0.0.0.0/0
+    description: 'Gitlab authorization access'
+
+puppetdb::database::postgresql::database_password: password
 
 puppetdb::server::database_host: postgresql
 puppetdb::server::host: root

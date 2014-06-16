@@ -2,6 +2,8 @@ node postgresql {
   include ::postgresqlrepo
   include ::postgresql::globals
   include ::postgresql::server
+  include ::postgresql::server::pg_hba_rules
+  include ::puppetdb::database::postgresql
 }
 
 node puppetdb {
