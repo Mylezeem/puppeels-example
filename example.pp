@@ -10,7 +10,7 @@ node puppetdb {
   include ::puppetdb::server
 }
 
-node puppet {
+node puppetmaster {
   include ::puppetdb::master::config
   include ::r10k
 }
