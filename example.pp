@@ -1,8 +1,6 @@
 node postgresql {
-  include ::postgresqlrepo
-  include ::postgresql::globals
-  include ::postgresql::server
-  include ::postgresql::server::pg_hba_rules
+  include ::profile::database::postgresql
+  include ::profile::logging::agent::fluentd
   include ::puppetdb::database::postgresql
 }
 
