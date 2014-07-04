@@ -6,9 +6,29 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.hostmanager.enabled = true
-  config.hostmanager.manage_host = true
+#  config.hostmanager.enabled = true
+#  config.hostmanager.manage_host = true
   config.vm.box = "centos"
+
+
+  config.vm.define "log001" do |log001|
+    log001.vm.hostname = "log001.mylezeem.com"
+
+    #log001.hostmanager.enabled = true
+    #log001.hostmanager.manage_host = true
+    log001.vm.synced_folder ".", "/vagrant", type: "rsync"
+    log001.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    log001.vm.provision "shell", inline: "yum -y update puppet"
+    log001.vm.provision "shell", inline: "yum -y install libcurl-devel"
+    log001.vm.provision "shell", inline: "service iptables stop"
+
+    log001.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+  end
+
 
   config.vm.define "postgresql" do |postgresql|
     postgresql.vm.hostname = "postgresql.mylezeem.com"
@@ -27,21 +47,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  #config.vm.define "log001" do |log001|
-    #log001.vm.hostname = "log001.mylezeem.com"
-
-    #log001.hostmanager.enabled = true
-    #log001.hostmanager.manage_host = true
-    #log001.vm.synced_folder ".", "/vagrant", type: "rsync"
-    #log001.vm.provision "shell", inline: "yum -y update puppetlabs-release"
-    #log001.vm.provision "shell", inline: "yum -y update puppet"
-
-    #log001.vm.provision "puppet" do |puppet|
-    #  puppet.synced_folder_type = 'rsync'
-    #  puppet.module_path = 'modules'
-    #  puppet.hiera_config_path = 'hiera.yaml'
-    #end
-  #end
 
   #config.vm.define "puppetdb" do |puppetdb|
     #puppetdb.vm.hostname = "puppetdb.mylezeem.com"

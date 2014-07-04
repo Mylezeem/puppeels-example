@@ -36,9 +36,15 @@ mod 'srf/fluentd'
 #
 # profile::logging::server::fluentd
 #
+mod 'puppetlabs/java'
 mod 'elasticsearch/elasticsearch'
+#mod 'thejandroman/kibana3'
+mod 'kibana3',
+  :git => 'https://github.com/Mylezeem/kibana3.git',
+  :ref => 'ws_servername'
 
 
+mod 'puppetlabs/apache'
 mod 'puppetlabs/stdlib'
 mod 'puppetlabs/concat'
 mod 'puppetlabs/apt'

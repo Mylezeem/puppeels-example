@@ -4,6 +4,10 @@ node postgresql {
   include ::puppetdb::database::postgresql
 }
 
+node log001 {
+  include ::profile::logging::server::fluentd
+}
+
 node puppetdb {
   include ::puppetdb::server
 }
