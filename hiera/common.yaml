@@ -44,9 +44,14 @@ postgresql::server::pg_hba_rules::pg_hba_rules:
 puppetdb::database::postgresql::database_password: password
 puppetdb::database::postgresql::manage_server: false
 
-puppetdb::server::database_host: postgresql
-puppetdb::server::host: root
-puppetdb::server::password: password
-puppetdb::server::name: puppetdb
+puppetdb::server::database_host: postgresql.mylezeem.com
+puppetdb::server::database_username: puppetdb
+puppetdb::server::database_password: password
+puppetdb::server::database_name: puppetdb
 
-puppetdb::master::config:::puppetdb_server: puppetdb
+puppetdb::server::listen_address: "%{::fqdn}"
+puppetdb::server::listen_port: 8080
+puppetdb::server::ssl_listen_address: "%{::fqdn}"
+puppetdb::server::ssl_listen_port: 8081
+
+puppetdb::master::config:::puppetdb_server: puppetdb.mylezeem.com
