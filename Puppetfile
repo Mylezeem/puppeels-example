@@ -43,6 +43,12 @@ mod 'kibana3',
   :git => 'https://github.com/Mylezeem/kibana3.git',
   :ref => 'ws_servername'
 
+#
+# profile::application::foreman
+#
+mod 'theforeman/foreman'
+mod 'theforeman/concat_native'
+
 
 mod 'puppetlabs/apache'
 mod 'puppetlabs/stdlib'

@@ -16,3 +16,7 @@ node puppetmaster {
   include ::puppetdb::master::config
   include ::r10k
 }
+
+node foreman {
+  include ::profile::application::foreman
+}
