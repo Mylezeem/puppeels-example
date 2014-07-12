@@ -1,0 +1,1 @@
+puppet apply --modulepath '/tmp/vagrant-puppet-2/modules-0:/etc/puppet/modules' --hiera_config=/tmp/vagrant-puppet-2/hiera.yaml --manifestdir /tmp/vagrant-puppet-2/manifests --detailed-exitcodes /tmp/vagrant-puppet-2/manifests/default.pp

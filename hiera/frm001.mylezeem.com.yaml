@@ -1,0 +1,9 @@
+---
+foreman::ssl: false
+foreman::foreman_url: "http://%{::fqdn}"
+foreman::configure_epel_repo: false
+
+foreman_proxy::manage_sudoersd: false
+foreman_proxy::ssl: false
+foreman_proxy::foreman_base_url: "http://%{::fqdn}"
+foreman_proxy::registered_proxy_url: "http://%{::fqdn}:%{::port}"

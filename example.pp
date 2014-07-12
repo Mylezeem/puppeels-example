@@ -17,6 +17,6 @@ node puppetmaster {
   include ::r10k
 }
 
-node foreman {
+node frm001 {
   include ::profile::application::foreman
 }

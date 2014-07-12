@@ -48,11 +48,17 @@ mod 'kibana3',
 #
 mod 'theforeman/foreman'
 mod 'theforeman/concat_native'
+mod 'theforeman/tftp'
+mod 'theforeman/puppet'
+mod 'theforeman/dns'
+mod 'theforeman/dhcp'
+mod 'theforeman/foreman_proxy'
 
 
 mod 'puppetlabs/apache'
 mod 'puppetlabs/stdlib'
 mod 'puppetlabs/concat'
+mod 'puppetlabs/xinetd'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/firewall'
 mod 'puppetlabs/inifile'
