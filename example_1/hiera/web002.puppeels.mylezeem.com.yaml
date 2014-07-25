@@ -1,0 +1,31 @@
+---
+profile::webservers::apache::mods_enable:
+  - cache
+  - cgi
+  - ssl
+
+profile::webservers::apache::vhost_definition:
+  web002.puppeels.mylezeem.com:
+    port: 80
+    docroot: '/var/www/web002/' 
+    serveradmin: 'admin@mylezeem.com'
+
+profile::logging::agent::fluentd::sources:
+  apache:
+    type: tail
+    configfile: apache
+    format: apache2
+    tag: apache.acces_log
+    config:
+      path: /var/log/httpd/access.log
+      pos_file: /var/tmp/fluentd.pos
+
+profile::logging::agent::fluentd::matches:
+  forward:
+    configfile: forward
+    type: forward
+    pattern: '**'
+    servers:
+      -
+        host: log.puppeels.mylezeem.com
+        port: 24224
