@@ -1,2 +1,2 @@
-manifests/*
-modules/*
+**/manifests/*
+**/modules/*
