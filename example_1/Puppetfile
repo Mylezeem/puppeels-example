@@ -19,7 +19,10 @@ mod 'stahnma/epel'
 #
 # profile::monitoring::agent::sensu
 #
-mod 'sensu/sensu'
+mod 'sensu',
+  :git => 'https://github.com/Mylezeem/sensu-puppet.git',
+  :ref => 'open_dashboard_selection'
+#mod 'sensu/sensu'
 
 
 #
@@ -47,6 +50,7 @@ mod 'puppetlabs/java'
 mod 'gentoo/portage'
 mod 'maestrodev/wget'
 mod 'mhuffnagle/make'
+mod 'nanliu/staging'
 mod 'puppetlabs/apache'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/concat'

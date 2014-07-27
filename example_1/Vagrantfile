@@ -49,11 +49,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     web001.vm.provision "shell", inline: "yum -y update puppet"
     web001.vm.provision "shell", inline: "service iptables stop"
 
-    web001.vm.provision "puppet" do |puppet|
-      puppet.synced_folder_type = 'rsync'
-      puppet.module_path = 'modules'
-      puppet.hiera_config_path = 'hiera.yaml'
-    end
+    #web001.vm.provision "puppet" do |puppet|
+    #  puppet.synced_folder_type = 'rsync'
+    #  puppet.module_path = 'modules'
+    #  puppet.hiera_config_path = 'hiera.yaml'
+    #end
   end
 
   config.vm.define "web002" do |web002|
@@ -64,11 +64,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     web002.vm.provision "shell", inline: "yum -y update puppet"
     web002.vm.provision "shell", inline: "service iptables stop"
 
-    web002.vm.provision "puppet" do |puppet|
-      puppet.synced_folder_type = 'rsync'
-      puppet.module_path = 'modules'
-      puppet.hiera_config_path = 'hiera.yaml'
-    end
+    #web002.vm.provision "puppet" do |puppet|
+    #  puppet.synced_folder_type = 'rsync'
+    #  puppet.module_path = 'modules'
+    #  puppet.hiera_config_path = 'hiera.yaml'
+    #end
   end
 
 

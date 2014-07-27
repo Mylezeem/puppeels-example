@@ -3,5 +3,10 @@ profile::monitoring::server::sensu::rabbitmq_password: secret
 profile::monitoring::server::sensu::proxy_dashboard: false
 
 sensu::server: true
-sensu::dashboard: true
 sensu::api: true
+
+sensu::dashboard: true
+sensu::version: 0.12.6-5
+
+#sensu::dashboard: uchiwa
+#sensu::dashboard_config_file: /etc/sensu/uchiwa.js
