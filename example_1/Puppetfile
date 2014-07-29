@@ -34,7 +34,9 @@ mod 'thomasvandoren/redis'
 #
 # profile::logging::agent::fluentd
 #
-mod 'srf/fluentd'
+mod 'fluentd',
+  :git => 'https://github.com/mmz-srf/puppet-fluentd.git',
+  :ref => 'develop'
 
 #
 # profile::logging::server::fluentd
@@ -51,7 +53,6 @@ mod 'gentoo/portage'
 mod 'maestrodev/wget'
 mod 'mhuffnagle/make'
 mod 'nanliu/staging'
-mod 'puppetlabs/apache'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/concat'
 mod 'puppetlabs/firewall'
@@ -62,3 +63,8 @@ mod 'puppetlabs/ruby'
 mod 'puppetlabs/stdlib'
 mod 'puppetlabs/vcsrepo'
 mod 'puppetlabs/xinetd'
+
+
+# vhost::logroot_mod is needed
+mod 'apache',
+  :git => 'https://github.com/puppetlabs/puppetlabs-apache.git'

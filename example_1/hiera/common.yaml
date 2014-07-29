@@ -16,3 +16,5 @@ sensu::rabbitmq_password: 'secret'
 sensu::rabbitmq_host: monitor.puppeels.mylezeem.com
 sensu::subscriptions:
   - base
+
+apache::default_vhost: false

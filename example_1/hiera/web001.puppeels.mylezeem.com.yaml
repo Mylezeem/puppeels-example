@@ -1,14 +1,13 @@
 ---
-profile::webservers::apache::mods_enable:
-  - cache
-  - cgi
+profile::webserver::apache::mods_enable:
   - ssl
 
-profile::webservers::apache::vhost_definition:
+profile::webserver::apache::vhost_definition:
   web001.puppeels.mylezeem.com:
     port: 80
     docroot: '/var/www/web001/' 
     serveradmin: 'admin@mylezeem.com'
+    logroot_mode: '0755'
 
 profile::logging::agent::fluentd::sources:
   apache:
@@ -17,7 +16,7 @@ profile::logging::agent::fluentd::sources:
     format: apache2
     tag: apache.acces_log
     config:
-      path: /var/log/httpd/access.log
+      path: /var/log/httpd/access_log
       pos_file: /var/tmp/fluentd.pos
 
 profile::logging::agent::fluentd::matches:
