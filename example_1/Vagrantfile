@@ -32,6 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     log.vm.synced_folder ".", "/vagrant", type: "rsync"
     log.vm.provision "shell", inline: "yum -y update puppetlabs-release"
     log.vm.provision "shell", inline: "yum -y update puppet"
+    log.vm.provision "shell", inline: "yum -y install libcurl-devel"
     log.vm.provision "shell", inline: "service iptables stop"
 
     log.vm.provision "puppet" do |puppet|
@@ -45,30 +46,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     web001.vm.hostname = "web001.puppeels.mylezeem.com"
 
     web001.vm.synced_folder ".", "/vagrant", type: "rsync"
+    web001.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
     web001.vm.provision "shell", inline: "yum -y update puppetlabs-release"
     web001.vm.provision "shell", inline: "yum -y update puppet"
     web001.vm.provision "shell", inline: "service iptables stop"
 
-    #web001.vm.provision "puppet" do |puppet|
-    #  puppet.synced_folder_type = 'rsync'
-    #  puppet.module_path = 'modules'
-    #  puppet.hiera_config_path = 'hiera.yaml'
-    #end
+    web001.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
   end
 
   config.vm.define "web002" do |web002|
     web002.vm.hostname = "web002.puppeels.mylezeem.com"
 
     web002.vm.synced_folder ".", "/vagrant", type: "rsync"
+    web002.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
     web002.vm.provision "shell", inline: "yum -y update puppetlabs-release"
     web002.vm.provision "shell", inline: "yum -y update puppet"
     web002.vm.provision "shell", inline: "service iptables stop"
 
-    #web002.vm.provision "puppet" do |puppet|
-    #  puppet.synced_folder_type = 'rsync'
-    #  puppet.module_path = 'modules'
-    #  puppet.hiera_config_path = 'hiera.yaml'
-    #end
+    web002.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
   end
 
 
