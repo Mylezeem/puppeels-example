@@ -67,4 +67,5 @@ mod 'puppetlabs/xinetd'
 
 # vhost::logroot_mod is needed
 mod 'apache',
-  :git => 'https://github.com/puppetlabs/puppetlabs-apache.git'
+  :git => 'https://github.com/Mylezeem/puppetlabs-apache.git',
+  :ref => 'ensure_default_vhost_false_scope'
