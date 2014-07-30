@@ -40,13 +40,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.module_path = 'modules'
       puppet.hiera_config_path = 'hiera.yaml'
     end
+
+    log.vm.provision "shell", inline: "cp /vagrant/misc/dasbhoard_apache.json /opt/kibana3/src/app/dashboards/"
   end
 
   config.vm.define "web001" do |web001|
     web001.vm.hostname = "web001.puppeels.mylezeem.com"
 
     web001.vm.synced_folder ".", "/vagrant", type: "rsync"
-    web001.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
     web001.vm.provision "shell", inline: "yum -y update puppetlabs-release"
     web001.vm.provision "shell", inline: "yum -y update puppet"
     web001.vm.provision "shell", inline: "service iptables stop"
@@ -62,7 +63,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     web002.vm.hostname = "web002.puppeels.mylezeem.com"
 
     web002.vm.synced_folder ".", "/vagrant", type: "rsync"
-    web002.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
     web002.vm.provision "shell", inline: "yum -y update puppetlabs-release"
     web002.vm.provision "shell", inline: "yum -y update puppet"
     web002.vm.provision "shell", inline: "service iptables stop"
