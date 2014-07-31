@@ -28,3 +28,6 @@ profile::logging::agent::fluentd::matches:
       -
         host: log.puppeels.mylezeem.com
         port: 24224
+
+sensu::subscriptions:
+  - webserver

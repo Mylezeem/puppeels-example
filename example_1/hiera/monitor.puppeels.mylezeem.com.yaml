@@ -2,9 +2,29 @@
 profile::monitoring::server::sensu::rabbitmq_password: secret
 profile::monitoring::server::sensu::proxy_dashboard: false
 
+profile::monitoring::server::sensu::plugins:
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/security/check-ports.rb':
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-mem.sh' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-ntp.rb' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-load.rb' :
+    type: url
+
+profile::monitoring::server::sensu::checks:
+  'check-mem' :
+    command: '/etc/sensu/plugins/check-mem.sh -w 150 -c 100'
+    subscribers: base
+  'check-ssh' :
+    command: '/etc/sensu/plugins/check-ports.rb --ports 22 --level crit'
+    subscribers: base
+  'check-ntp' :
+    command: '/etc/sensu/plugins/check-ntp.rb -w 1 -c 4'
+    subscribers: base
+
 sensu::server: true
 sensu::api: true
-
 sensu::dashboard: true
 sensu::version: 0.12.6-5
 

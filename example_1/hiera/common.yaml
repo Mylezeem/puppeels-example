@@ -18,3 +18,5 @@ sensu::subscriptions:
   - base
 
 apache::default_vhost: false
+
+wget::version: latest
