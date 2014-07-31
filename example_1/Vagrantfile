@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.hiera_config_path = 'hiera.yaml'
     end
 
-    log.vm.provision "shell", inline: "cp /vagrant/misc/dasbhoard_apache.json /opt/kibana3/src/app/dashboards/"
+    log.vm.provision "shell", inline: "cp /vagrant/misc/dashboard_apache.json /opt/kibana3/src/app/dashboards/ && chown apache:root /opt/kibana3/src/app/dashboards/dashboard_apache.json"
   end
 
   config.vm.define "web001" do |web001|

@@ -21,8 +21,7 @@ mod 'stahnma/epel'
 #
 mod 'sensu',
   :git => 'https://github.com/Mylezeem/sensu-puppet.git',
-  :ref => 'open_dashboard_selection'
-#mod 'sensu/sensu'
+  :ref => 'allow_url_plugins'
 
 
 #
@@ -36,7 +35,7 @@ mod 'thomasvandoren/redis'
 #
 mod 'fluentd',
   :git => 'https://github.com/mmz-srf/puppet-fluentd.git',
-  :ref => 'develop'
+  :ref => 'd073a97002c569d8bfc38ac814ee33ed2cb13ca6'
 
 #
 # profile::logging::server::fluentd
@@ -65,7 +64,6 @@ mod 'puppetlabs/vcsrepo'
 mod 'puppetlabs/xinetd'
 
 
-# vhost::logroot_mod is needed
+# vhost::logroot_mod is needes
 mod 'apache',
-  :git => 'https://github.com/Mylezeem/puppetlabs-apache.git',
-  :ref => 'ensure_default_vhost_false_scope'
+  :git => 'https://github.com/puppetlabs/puppetlabs-apache.git'
