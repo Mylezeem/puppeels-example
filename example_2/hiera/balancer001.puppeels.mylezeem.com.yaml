@@ -1,0 +1,66 @@
+---
+profile::highavailability::haproxy::haproxy_listens:
+  webservers00:
+    collect_exported: false
+    ipaddress: "%{::ipaddress}"
+    ports: '80'
+    options:
+      option: ''
+  monitor:
+    collect_exported: false
+    ipaddress: "%{::ipaddress}"
+    ports: '1936'
+    options:
+      mode: http
+      stats:
+        - enable
+        - 'uri /admin'
+        - 'realm HAproxy\ Statistics'
+        - 'auth admin:secret'
+        - 'refresh 5s'
+        - 'hide-version'
+        - 'show-node'
+        - 'show-legends'
+
+profile::highavailability::haproxy::haproxy_balancermembers:
+  web001:
+    listening_service: webservers00
+    server_names: 'web001.puppeels.mylezeem.com'
+    ipaddresses: '192.168.121.191'
+    ports: '80'
+    options: check
+  web002:
+    listening_service: webservers00
+    server_names: 'web002.puppeels.mylezeem.com'
+    ipaddresses: '192.168.121.80'
+    ports: '80'
+    options: check
+  #web003:
+  #  listening_service: webservers00
+  #  server_names: 'web003.puppeels.mylezeem.com'
+  #  ports: '80'
+  #  options: check
+
+profile::logging::agent::fluentd::matches:
+  forward:
+    configfile: forward
+    type: forward
+    pattern: '**'
+    servers:
+      -
+        host: log.puppeels.mylezeem.com
+        port: 24224
+
+profile::monitoring::agent::sensu::plugins:
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/security/check-ports.rb':
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-mem.sh' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-ntp.rb' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-load.rb' :
+    type: url
+
+sensu::subscriptions:
+  - haproxy
+  - base

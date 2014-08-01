@@ -1,0 +1,131 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.vm.box = "centos65"
+
+
+  config.vm.define "monitor" do |monitor|
+    monitor.vm.hostname = "monitor.puppeels.mylezeem.com"
+
+    monitor.vm.synced_folder ".", "/vagrant", type: "rsync"
+    monitor.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    monitor.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    monitor.vm.provision "shell", inline: "yum -y update puppet"
+    monitor.vm.provision "shell", inline: "service iptables stop"
+
+    monitor.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+  end
+
+  config.vm.define "log" do |log|
+    log.vm.hostname = "log.puppeels.mylezeem.com"
+
+    log.vm.synced_folder ".", "/vagrant", type: "rsync"
+    log.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    log.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    log.vm.provision "shell", inline: "yum -y update puppet"
+    log.vm.provision "shell", inline: "yum -y install libcurl-devel"
+    log.vm.provision "shell", inline: "service iptables stop"
+
+    log.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+
+    log.vm.provision "shell", inline: "cp /vagrant/misc/dashboard_apache.json /opt/kibana3/src/app/dashboards/ && chown apache:root /opt/kibana3/src/app/dashboards/dashboard_apache.json"
+  end
+
+  config.vm.define "web001" do |web001|
+    web001.vm.hostname = "web001.puppeels.mylezeem.com"
+
+    web001.vm.synced_folder ".", "/vagrant", type: "rsync"
+    web001.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    web001.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    web001.vm.provision "shell", inline: "yum -y update puppet"
+    web001.vm.provision "shell", inline: "service iptables stop"
+
+    web001.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+  end
+
+  config.vm.define "web002" do |web002|
+    web002.vm.hostname = "web002.puppeels.mylezeem.com"
+
+    web002.vm.synced_folder ".", "/vagrant", type: "rsync"
+    web002.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    web002.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    web002.vm.provision "shell", inline: "yum -y update puppet"
+    web002.vm.provision "shell", inline: "service iptables stop"
+
+    web002.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+  end
+
+  config.vm.define "web003" do |web003|
+    web003.vm.hostname = "web003.puppeels.mylezeem.com"
+    web003.vm.network :private_network, :ip => "192.168.122.112"
+
+    web003.vm.synced_folder ".", "/vagrant", type: "rsync"
+    web003.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    web003.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    web003.vm.provision "shell", inline: "yum -y update puppet"
+    web003.vm.provision "shell", inline: "service iptables stop"
+
+    web003.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+  end
+
+  config.vm.define "balancer001" do |balancer001|
+    balancer001.vm.hostname = "balancer001.puppeels.mylezeem.com"
+
+    balancer001.vm.synced_folder ".", "/vagrant", type: "rsync"
+    balancer001.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    balancer001.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    balancer001.vm.provision "shell", inline: "yum -y update puppet"
+    balancer001.vm.provision "shell", inline: "service iptables stop"
+
+    balancer001.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+  end
+
+  config.vm.define "balancer002" do |balancer002|
+    balancer002.vm.hostname = "balancer002.puppeels.mylezeem.com"
+
+    balancer002.vm.synced_folder ".", "/vagrant", type: "rsync"
+    balancer002.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    balancer002.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    balancer002.vm.provision "shell", inline: "yum -y update puppet"
+    balancer002.vm.provision "shell", inline: "service iptables stop"
+
+    balancer002.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+    end
+  end
+
+
+end

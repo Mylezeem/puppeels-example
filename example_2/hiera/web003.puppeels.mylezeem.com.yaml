@@ -1,0 +1,52 @@
+---
+profile::webserver::apache::mods_enable:
+  - ssl
+
+profile::webserver::apache::vhost_definition:
+  web003.puppeels.mylezeem.com:
+    port: 80
+    docroot: '/var/www/web003/' 
+    serveradmin: 'admin@mylezeem.com'
+    logroot_mode: '0755'
+
+profile::logging::agent::fluentd::sources:
+  apache:
+    type: tail
+    configfile: apache
+    format: apache2
+    tag: apache.acces_log
+    config:
+      path: /var/log/httpd/web003.puppeels.mylezeem.com_access.log
+      pos_file: /var/tmp/fluentd.pos
+
+profile::logging::agent::fluentd::matches:
+  forward:
+    configfile: forward
+    type: forward
+    pattern: '**'
+    servers:
+      -
+        host: log.puppeels.mylezeem.com
+        port: 24224
+
+profile::monitoring::agent::sensu::plugins:
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/security/check-ports.rb':
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-mem.sh' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-ntp.rb' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-load.rb' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/http/check-http.rb':
+    type: url
+
+profile::monitoring::agent::sensu::checks:
+  'check-http':
+    command: '/etc/sensu/plugins/check-http.rb --url http://web003.puppeels.mylezeem.com'
+    standalone: true
+    interval: 60
+
+sensu::subscriptions:
+  - webserver
+  - base
