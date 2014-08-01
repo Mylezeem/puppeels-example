@@ -21,7 +21,7 @@ mod 'stahnma/epel'
 #
 mod 'sensu',
   :git => 'https://github.com/Mylezeem/sensu-puppet.git',
-  :ref => 'allow_url_plugins'
+  :ref => 'all_pending_pr_branch'
 
 
 #

@@ -29,5 +29,24 @@ profile::logging::agent::fluentd::matches:
         host: log.puppeels.mylezeem.com
         port: 24224
 
+profile::monitoring::agent::sensu::plugins:
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/security/check-ports.rb':
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-mem.sh' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-ntp.rb' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-load.rb' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/http/check-http.rb':
+    type: url
+
+profile::monitoring::agent::sensu::checks:
+  'check-http':
+    command: '/etc/sensu/plugins/check-http.rb --url http://web002.puppeels.mylezeem.com'
+    standalone: true
+    interval: 60
+
 sensu::subscriptions:
   - webserver
+  - base
