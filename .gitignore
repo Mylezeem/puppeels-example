@@ -1,3 +1,4 @@
 **/manifests/*
 **/modules/*
 **/.vagrant/*
+**/*.swp
