@@ -1,14 +1,31 @@
 ---
+profile::highavailability::haproxy::keepalived_enable: true
+
+profile::highavailability::haproxy::keepalived_vrrp_instances:
+  vip_50:
+    interface: eth0
+    state: MASTER
+    virtual_router_id: 50
+    priority: 101
+    virtual_ipaddress: '192.168.121.253'
+    track_interface:
+      - eth0
+    track_script: check_haproxy
+
+profile::highavailability::haproxy::keepalived_vrrp_scripts:
+  check_haproxy:
+    script: '/usr/bin/killall -0 haproxy'
+
 profile::highavailability::haproxy::haproxy_listens:
   webservers00:
     collect_exported: false
-    ipaddress: "%{::ipaddress}"
+    ipaddress:  '192.168.121.253'
     ports: '80'
     options:
       option: ''
   monitor:
     collect_exported: false
-    ipaddress: "%{::ipaddress}"
+    ipaddress: '192.168.121.253'
     ports: '1936'
     options:
       mode: http
@@ -40,6 +57,18 @@ profile::highavailability::haproxy::haproxy_balancermembers:
   #  server_names: 'web003.puppeels.mylezeem.com'
   #  ports: '80'
   #  options: check
+  balancer001:
+    listening_service: monitor
+    server_names: 'balancer001.puppeels.mylezeem.com'
+    ipaddresses: '192.168.121.97'
+    ports: '1936'
+    options: check
+  balancer002:
+    listening_service: monitor
+    server_names: 'balancer002.puppeels.mylezeem.com'
+    ipaddresses: '192.168.121.228'
+    ports: '1936'
+    options: check
 
 profile::logging::agent::fluentd::matches:
   forward:

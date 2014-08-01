@@ -49,6 +49,7 @@ mod 'puppetlabs/java'
 # profile::highavailability::haproxy
 #
 mod 'arioch/keepalived'
+mod 'domcleal/augeasproviders'
 mod 'puppetlabs/haproxy'
 
 #
