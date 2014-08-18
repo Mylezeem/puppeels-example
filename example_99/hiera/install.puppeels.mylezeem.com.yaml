@@ -1,0 +1,65 @@
+---
+profile::application::jenkins::install_jjb: true
+
+profile::webserver::tomcat::instances:
+  default:
+    install_from_source: false
+    package_name: tomcat
+
+profile::webserver::tomcat::services:
+  default:
+    use_jsvc: false
+    use_init: true
+    service_name: tomcat
+
+profile::webserver::tomcat::connectors_config:
+  tomcathttp:
+    catalina_base: '/usr/share/tomcat'
+    port: 8282
+    protocol: 'HTTP/1.1'
+
+#
+# Puppet Master
+#
+profile::application::puppet_master::r10k_enable: false
+profile::application::puppet_master::puppetdb_enable: true
+
+profile::application::puppet_master::master_configuration:
+  ssl_client_header:
+    setting: ssl_client_header
+    value: SSL_CLIENT_S_DN
+  ssl_client_verify_header:
+    setting: ssl_client_verify_header
+    value: SSL_CLIENT_VERIFY
+  storeconfigs:
+    setting: storeconfigs
+    value: true
+  storeconfigs_backend:
+    setting: storeconfigs_backend
+    value: puppetdb
+  reports:
+    setting: reports
+    value: true
+
+profile::application::puppet_master::agent_configuration:
+  certname:
+    setting: certname
+    value: "%{::fqdn}"
+  server:
+    setting: server
+    value: "%{::fqdn}"
+
+
+puppetdb::master::config::puppetdb_server: "%{::fqdn}"
+puppetdb::master::config::puppetdb_port: 8080
+puppetdb::master::config::manage_report_processor: true
+puppetdb::master::config::enable_reports: true
+puppetdb::master::config::restart_puppet: false
+puppetdb::master::config::strict_validation: false
+
+#
+# PuppetDB
+#
+puppetdb::server::disable_ssl: true
+puppetdb::server::listen_address: "%{::ipaddress}"
+puppetdb::server::database: embedded
