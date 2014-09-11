@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.vm.box = "centos65"
+
+  config.vm.define "install" do |install|
+    install.vm.hostname = "install.puppeels.mylezeem.com"
+
+    install.vm.synced_folder ".", "/vagrant", type: "rsync"
+    install.vm.provision "shell", inline: "yum -y update puppetlabs-release"
+    install.vm.provision "shell", inline: "yum -y update puppet"
+    install.vm.provision "shell", inline: "rpm -Uvh http://fedora.mirror.nexicom.net/epel/6/i386/epel-release-6-8.noarch.rpm"
+    install.vm.provision "shell", inline: "service iptables stop"
+
+    install.vm.provision "puppet" do |puppet|
+      puppet.synced_folder_type = 'rsync'
+      puppet.module_path = 'modules'
+      puppet.hiera_config_path = 'hiera.yaml'
+      puppet.options="--verbose --debug"
+    end
+  end
+
+end

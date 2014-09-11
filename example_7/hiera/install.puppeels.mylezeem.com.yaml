@@ -1,0 +1,48 @@
+---
+
+cloud::install::puppet_master::master_configuration:
+  ssl_client_header:
+    setting: ssl_client_header
+    value: SSL_CLIENT_S_DN
+  ssl_client_verify_header:
+    setting: ssl_client_verify_header
+    value: SSL_CLIENT_VERIFY
+  storeconfigs:
+    setting: storeconfigs
+    value: true
+  storeconfigs_backend:
+    setting: storeconfigs_backend
+    value: puppetdb
+  reports:
+    setting: reports
+    value: true
+
+cloud::install::puppet_master::agent_configuration:
+  certname:
+    setting: certname
+    value: "%{::fqdn}"
+  server:
+    setting: server
+    value: "%{::fqdn}"
+
+puppetdb::master::config::puppetdb_server: "%{::fqdn}"
+puppetdb::master::config::puppetdb_port: 8080
+puppetdb::master::config::manage_report_processor: true
+puppetdb::master::config::enable_reports: true
+puppetdb::master::config::restart_puppet: false
+puppetdb::master::config::strict_validation: false
+
+#
+# PuppetDB
+#
+puppetdb::server::disable_ssl: true
+puppetdb::server::listen_address: "%{::ipaddress}"
+puppetdb::server::database: embedded
+
+#
+# Jenkins
+#
+jenkins::configure_firewall: false
+jenkins::config_hash:
+  'JENKINS_PORT':
+    value: 8282
