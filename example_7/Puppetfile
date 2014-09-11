@@ -16,6 +16,8 @@
 # Puppetfile
 forge 'http://forge.puppetlabs.com'
 
+mod 'stahnma/epel'
+
 # Core OpenStack projects
 mod 'ceilometer',
   :git => 'git://github.com/enovance/puppet-ceilometer.git',
