@@ -1,0 +1,32 @@
+#
+# Forge
+#
+
+#
+# profile::base
+#
+mod 'account',
+  :git => 'https://github.com/Mylezeem/puppet-account.git',
+  :ref => 'multiple_accounts'
+mod 'profile',
+  :git => 'https://github.com/Mylezeem/puppeels.git',
+  :ref => 'master'
+mod 'puppetlabs/ntp'
+mod 'saz/sudo'
+mod 'saz/ssh'
+mod 'stahnma/epel'
+
+#
+# Pentaho
+#
+mod 'pentaho',
+  :git => 'https://github.com/Mylezeem/puppet-pentaho.git'
+mod 'camptocamp/archive'
+
+mod 'maestrodev/wget'
+
+
+#
+# Common
+#
+mod 'puppetlabs/stdlib'

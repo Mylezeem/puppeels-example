@@ -1,0 +1,6 @@
+---
+pentaho::manage_jdbc_drivers:
+  - h2
+  - mysql
+
+pentaho::applicationserver_base: '/usr/share/tomcat'

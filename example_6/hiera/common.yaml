@@ -1,0 +1,33 @@
+---
+profile::accounts::accounts:
+  yguenane:
+    home_dir: /home/yguenane
+    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC+ZFQv3MyjtL1BMpSA0o0gIkzLVVC711rthT29hBNeORdNowQ7FSvVWUdAbTq00U7Xzak1ANIYLJyn+0r7olsdG4XEiUR0dqgC99kbT/QhY5mLe5lpl7JUjW9ctn00hNmt+TswpatCKWPNwdeAJT2ERynZaqPobENgvIq7jfOFWQIVew7qFeZygxsPVn36EUr2Cdq7Nb7U0XFXh3x1p0v0+MbL4tiJwPlMAGvFTKIMt+EaA+AsRIxiOo9CMk5ZuOl9pT8h5vNuEOcvS0qx4v44EAD2VOsCVCcrPNMcpuSzZP8dRTGU9wRREAWXngD0Zq9YJMH38VTxHiskoBw1NnPz
+
+# SSH
+ssh::server::options:
+  PasswordAuthentication: 'no'
+  PermitRootLogin: 'no'
+  X11Forwarding: 'no'
+  AllowTcpForwarding: 'no'
+
+# Monitoring
+sensu::sensu_plugin_version: latest
+sensu::rabbitmq_password: 'secret'
+sensu::rabbitmq_host: monitor.puppeels.mylezeem.com
+sensu::subscriptions:
+  - base
+
+apache::default_vhost: false
+
+wget::version: latest
+
+profile::monitoring::agent::sensu::plugins:
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/security/check-ports.rb':
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-mem.sh' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-ntp.rb' :
+    type: url
+  'https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-load.rb' :
+    type: url
