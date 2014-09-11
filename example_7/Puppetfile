@@ -82,6 +82,9 @@ mod 'elasticsearch',
 mod 'git',
   :git => 'git://github.com/enovance/puppetlabs-git.git',
   :ref => '0df1f62130a7752c728efb7555f2b07ca178ee5b'
+mod 'hiera',
+  :git => 'git://github.com/enovance/puppet-hiera.git',
+  :ref => '1d407be61d800034409e4595a6fb73004b10f70f'
 mod 'firewall',
   :git => 'git@github.com:enovance/puppetlabs-firewall.git',
   :ref => '6540b31b0ca0727094ddf44436274436d2853d6d'
