@@ -15,6 +15,30 @@ cloud::install::puppetmaster::agent_configuration:
     setting: server
     value: "%{::fqdn}"
 
+cloud::install::puppetmaster::puppetmaster_vhost_configuration:
+  puppetmasterd:
+    docroot: '/usr/share/puppet/rack/puppetmasterd/public'
+    port: 8140
+    ssl: true
+    ssl_protocol: 'ALL -SSLv2'
+    ssl_cipher: 'ALL:!aNULL:!eNULL:!DES:!3DES:!IDEA:!SEED:!DSS:!PSK:!RC4:!MD5:+HIGH:+MEDIUM:!LOW:!SSLv2:!EXP'
+    ssl_honorcipherorder: 'On'
+    ssl_cert: "/var/lib/puppet/ssl/certs/%{::fqdn}.pem"
+    ssl_key: "/var/lib/puppet/ssl/private_keys/%{::fqdn}.pem"
+    ssl_chain: "/var/lib/puppet/ssl/certs/ca.pem"
+    ssl_ca: "/var/lib/puppet/ssl/certs/ca.pem"
+    ssl_verify_client: optional
+    ssl_verify_depth: 1
+    ssl_options:
+      - +StdEnvVars
+      - +ExportCertData
+    request_headers:
+      - 'unset X-Forwarded-For'
+      - 'set X-SSL-Subject %{SSL_CLIENT_S_DN}e'
+      - 'set X-Client-DN %{SSL_CLIENT_S_DN}e'
+      - 'set X-Client-Verify %{SSL_CLIENT_VERIFY}e'
+    rack_base_uris: '/'
+
 puppetdb::master::config::puppetdb_server: "%{::fqdn}"
 puppetdb::master::config::manage_report_processor: true
 puppetdb::master::config::enable_reports: true
