@@ -21,12 +21,21 @@ mod 'stahnma/epel'
 #
 mod 'pentaho',
   :git => 'https://github.com/Mylezeem/puppet-pentaho.git'
-mod 'camptocamp/archive'
 
+mod 'archive',
+  :git => 'https://github.com/camptocamp/puppet-archive.git'
 mod 'maestrodev/wget'
+mod 'puppetlabs/tomcat'
+
 
 
 #
 # Common
 #
+mod 'puppetlabs/java'
 mod 'puppetlabs/stdlib'
+mod 'puppetlabs/concat'
+mod 'puppetlabs/mysql'
+mod 'yguenane/mariadbrepo'
+mod 'nanliu/staging'
+mod 'domcleal/augeasproviders'

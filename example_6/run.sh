@@ -14,7 +14,9 @@ cp example.pp manifests/default.pp
 
 # Disable include ::sudo for Vagrant purpose
 # Since it automaticailly set Default requiretty
-sed -i 's/include ::sudo/#include :sudo/' modules/profile/manifests/base.pp
+sed -i 's/include ::sudo/#include ::sudo/' modules/profile/manifests/base.pp
+sed -i 's/include profile::logging/#include profile::logging/' modules/profile/manifests/base.pp
+sed -i 's/include profile::monitoring/#include profile::monitoring/' modules/profile/manifests/base.pp
 
 # Remove unmet symlink in account
 # puppet module

@@ -1,6 +1,22 @@
 ---
-pentaho::manage_jdbc_drivers:
-  - h2
-  - mysql
+profile::application::pentaho::manage_db: mysql
+profile::webserver::tomcat::install_jpackage: false
+profile::webserver::tomcat::instances:
+  default:
+    install_from_source: false
+    package_name: tomcat
+profile::webserver::tomcat::services:
+  default:
+    use_jsvc: false
+    use_init: true
+    service_name: tomcat
+pentaho::database::db_user: root
+pentaho::database::db_password: password
+pentaho::database::db_host: 127.0.0.1
 
-pentaho::applicationserver_base: '/usr/share/tomcat'
+mysql::server::root_password: password
+mysql::server::package_name: MariaDB-server
+mysql::server::service_name: mysql
+mysql::server::override_options:
+  mysqld:
+    pid-file: /var/lib/mysql/mysql.pid
