@@ -1,0 +1,11 @@
+---
+profile::base::common::manage_augeasproviders: false
+profile::base::common::manage_epel: true
+profile::base::common::manage_accounts: false
+profile::base::common::manage_logging: false
+profile::base::common::manage_monitoring: false
+profile::base::common::manage_sshd: false
+profile::base::common::manage_ntp: true
+profile::base::common::manage_sudo: false
+profile::base::common::manage_authconfig: false
+profile::base::common::manage_firewall: false

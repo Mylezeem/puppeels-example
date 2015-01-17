@@ -32,6 +32,15 @@ The [example_2](https://github.com/Mylezeem/puppeels-example/tree/master/example
 |Web002 Homepage        | http://web002.puppeels.mylezeem.com                  | N/A          |
 |Web003 Homepage        | http://web003.puppeels.mylezeem.com                  | N/A          |
 
+Example 3: A MongoDB server
+---------------------------
+
+The [example_3](https://github.com/Mylezeem/puppeels-example/tree/master/example_3) folder, represents a server running [MongoDB](http://www.mongodb.org) community edition. Once the Vagrant file is run please see below the reachable URLs:
+
+| What                    | URL                                                | Credentials    |
+|-------------------------|----------------------------------------------------|----------------|
+|MongoDB Dashboard        | http://mongod01.puppeels.mylezeem.com:28017        | N/A            |
+
 Example 6: Pentaho BA server
 ----------------------------
 

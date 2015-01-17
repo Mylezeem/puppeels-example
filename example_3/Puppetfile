@@ -1,0 +1,16 @@
+#
+# Forge
+#
+
+mod 'profile',
+  :git => 'https://github.com/Mylezeem/puppeels.git',
+  :ref => 'master'
+
+mod 'puppetlabs/mongodb'
+
+# Common
+#
+mod 'puppetlabs/stdlib'
+mod 'puppetlabs/apt'
+mod 'puppetlabs/ntp'
+mod 'stahnma/epel'

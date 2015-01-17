@@ -1,0 +1,3 @@
+---
+mongodb::globals::bind_ip: "%{::ipaddress}"
+mongodb::server::rest: true
